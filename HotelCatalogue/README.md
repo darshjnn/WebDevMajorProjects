@@ -1,5 +1,7 @@
 # Hotel Catalogue
 
+This is a simple cataloging system where the user can catalogue all the listings for show casing.
+
 Features:
 1. Modular Code.
 2. Well-defined Schema.
@@ -16,4 +18,4 @@ Configuring the project:
 
 5. Open browser and visit on '__localhost:8080__'.
 
-### Author: Darsh Jain
+#### Author: Darsh Jain
