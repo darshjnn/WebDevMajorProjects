@@ -9,9 +9,58 @@
 body {
     background-color: #212121;
     color: #E8E8E8;
+    padding: 0;
+    margin: 0;
+}
+
+main {
+    position: relative;
+    /* top: 5rem; */
+}
+
+.hr {
+    background-color: #dde6eda1;
+    height: 0.15rem;
+    margin: 0.5rem 0.8rem;
 }
 
 a {
     text-decoration: none;
     color: #E8E8E8;
+}
+
+.hover {
+    height: 2px;
+    width: 0%;
+    transition: all 0.2s ease-in-out;
+    background-color: aliceblue;
+}
+
+a:hover ~ .hover {
+    width: 100%;
+    transition: all 0.2s ease-in-out;
+}
+
+/* Custom Scroll Bar */
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #27374D;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    transition: all ease-in-out 0.3s;
+    border-radius: 0.8rem;
+    background: #526D82;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    transition: all ease-in-out 0.3s;
+    background: #DDE6ED;
 }

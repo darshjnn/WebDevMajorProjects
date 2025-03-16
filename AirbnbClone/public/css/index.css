@@ -26,13 +26,24 @@ a:hover {
 .listingCards img {
     width: 25rem;
     height: 20rem;
+    padding: 0;
+    margin: 0;
 }
 
 .listingInfo {
-    padding: 0.4rem 0.6rem;
+    display: flex;
+    flex-direction: column;
+    min-height: 10rem;
+    padding: 0;
+}
+
+.headInfo, .description {
+    padding: 0.1rem 0.4rem;
+    padding-top: 0;
 }
 
 .headInfo {
+    background-color: #b1c29e67;
     display: flex;
     flex-direction: row;
     align-items: baseline;
@@ -44,9 +55,37 @@ a:hover {
 }
 
 .headInfo .headInfoTitle {
+    font-weight: 600;
     text-align: start;
 }
 
 .headInfo .headInfoDetails {
+    font-size: smaller;
     text-align: end;
+}
+
+.price {
+    font-size: medium;
+}
+
+.description {
+    padding-bottom: 0;
+    margin-bottom: 0;
+    color: #E8E8E8;
+    flex: 1;
+    height: 100%;
+    font-weight: 500;
+    background-color: #d6bd988e;
+}
+
+@media (max-width: 460px) {
+    .listingCards {
+        width: 20rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .listingCards {
+        width: 15rem;
+    }
 }

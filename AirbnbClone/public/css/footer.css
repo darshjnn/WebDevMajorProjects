@@ -1,0 +1,25 @@
+.hrFooter {
+    background-color: #dde6eda1;
+    height: 0.15rem;
+    margin: 1rem 0.8rem;
+}
+
+.footer {
+    padding: 0.3rem 1.7rem;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.hover {
+    height: 2px;
+    width: 0%;
+    transition: all 0.2s ease-in-out;
+    background-color: aliceblue;
+}
+
+a:hover~.hover {
+    width: 100%;
+    transition: all 0.2s ease-in-out;
+}

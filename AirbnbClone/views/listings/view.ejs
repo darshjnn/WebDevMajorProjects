@@ -5,20 +5,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%- include('includes/head.ejs'); %>
-    <link rel="stylesheet" href="/view.css">
-    <title><%= listing.title %></title>
+        <link rel="stylesheet" href="/view.css">
+        <title>
+            <%= listing.title %>
+        </title>
 </head>
 
 <body>
-    <h2>
-        <%= listing %>
-    </h2>
+    <%- include('includes/navbar.ejs') %>
+        <main>
+            <a href="http://localhost:8080/listings/<%= listing._id %>/edit">Edit Listing...</a>
+            <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST">
+                <button type="submit">Delete Listing...</button>
+            </form>
+            <a href="http://localhost:8080/listings/">Go back...</a>
+        </main>
 
-    <a href="http://localhost:8080/listings/<%= listing._id %>/edit">Edit Listing...</a>
-    <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST">
-        <button type="submit">Delete Listing...</button>
-    </form>
-    <a href="http://localhost:8080/listings/">Go back...</a>
+        <%- include('includes/footer.ejs') %>
 </body>
 
 </html>

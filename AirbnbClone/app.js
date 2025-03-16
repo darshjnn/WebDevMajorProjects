@@ -4,7 +4,7 @@ import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import mongoose from 'mongoose';
 import methodOverride from 'method-override';
-import { Listing } from './models/listings.js'
+import { Listing } from './models/listings.js';
 
 const app = express();
 const port = 8080;
@@ -48,7 +48,7 @@ main()
 
 // Root
 app.get('/', async (req, res) => {
-    res.send("Server working...");
+    res.redirect('/listings');
 })
 
 // View all the Listings

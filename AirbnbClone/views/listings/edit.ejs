@@ -12,8 +12,8 @@
 </head>
 
 <body>
-    <h2>Edit Listing: <%= listing.title %>
-    </h2>
+    <%- include('includes/navbar.ejs') %>
+
     <main>
         <form action="/listings/<%= listing._id %>?_method=PATCH" method="POST">
             <div>
@@ -59,6 +59,7 @@
         </form>
     </main>
 
+    <%- include('includes/footer.ejs') %>
 </body>
 
 </html>
