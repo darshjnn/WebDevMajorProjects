@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('includes/head.ejs'); %>
+        <link rel="stylesheet" href="/add.css">
+        <title>Add Listing</title>
+</head>
+
+<body>
+    <h2>
+        Add Listing
+    </h2>
+
+    <form action="/listings" method="post">
+        <div>
+            <label for="titleInp">Enter Title:&nbsp;</label>
+            <input type="text" name="listing[title]" id="titleInp" placeholder="Title of your listing...">
+            <br>
+        </div>
+
+        <div>
+            <label for="descText">Write a brief description:&nbsp;</label>
+            <textarea name="listing[description]" id="descText"
+                placeholder="Description for your listing..."></textarea>
+            <br>
+        </div>
+
+        <div>
+            <label for="imgInp">Add Image URL for your listing:&nbsp;</label>
+            <input type="text" name="listing[image]" id="imgInp" placeholder="Enter URL...">
+            <br>
+        </div>
+
+        <div>
+            <label for="priceInp">Enter Price per day:&nbsp;</label>
+            <input type="number" name="listing[price]" id="priceInp" placeholder="Enter pricing...">
+            <br>
+        </div>
+
+        <div>
+            <label for="countryInp">Enter Country:&nbsp;</label>
+            <input type="text" name="listing[country]" id="countryInp" placeholder="Country...">
+            <br>
+        </div>
+
+        <div>
+            <label for="locationInp">Enter Location:&nbsp;</label>
+            <input type="text" name="listing[location]" id="locationInp" placeholder="Location of your listing...">
+            <br>
+        </div>
+
+        <div>
+            <button type="submit">Add Listing...</button>
+        </div>
+    </form>
+</body>
+
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('includes/head.ejs') %>
+        <link rel="stylesheet" href="/edit.css">
+        <title>
+            <%= listing.title %>
+        </title>
+</head>
+
+<body>
+    <h2>Edit Listing: <%= listing.title %>
+    </h2>
+    <main>
+        <form action="/listings/<%= listing._id %>?_method=PATCH" method="POST">
+            <div>
+                <label for="titleInp">Change Title???:&nbsp;</label>
+                <input type="text" name="listing[title]" id="titleInp" placeholder="Title of your listing..." value="<%= listing.title %>">
+                <br>
+            </div>
+
+            <div>
+                <label for="descText">Change description???:&nbsp;</label>
+                <textarea name="listing[description]" id="descText"
+                    placeholder="Description for your listing..."><%= listing.description %></textarea>
+                <br>
+            </div>
+
+            <div>
+                <label for="imgInp">Change Image URL for your listing???:&nbsp;</label>
+                <input type="text" name="listing[image]" id="imgInp" placeholder="Enter URL..." value="<%= listing.image %>">
+                <br>
+            </div>
+
+            <div>
+                <label for="priceInp">Change Price per day???:&nbsp;</label>
+                <input type="number" name="listing[price]" id="priceInp" placeholder="Enter pricing..." value="<%= listing.price %>">
+                <br>
+            </div>
+
+            <div>
+                <label for="countryInp">Change Country???:&nbsp;</label>
+                <input type="text" name="listing[country]" id="countryInp" placeholder="Country..." value="<%= listing.country %>">
+                <br>
+            </div>
+
+            <div>
+                <label for="locationInp">Change Location???:&nbsp;</label>
+                <input type="text" name="listing[location]" id="locationInp" placeholder="Location of your listing..." value="<%= listing.location %>">
+                <br>
+            </div>
+
+            <div>
+                <button type="submit">Edit Listing...</button>
+            </div>
+        </form>
+    </main>
+
+</body>
+
+</html>

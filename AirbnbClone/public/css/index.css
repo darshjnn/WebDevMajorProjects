@@ -1,0 +1,52 @@
+main {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+}
+
+a {
+    transition: all ease-in-out 0.2s;
+}
+
+a:hover {
+    transition: all ease-in-out 0.2s;
+    transform: scale(1.03);
+}
+
+.listingCards {
+    min-height: 30rem;
+    width: 25rem;
+    overflow: hidden;
+    border: 0.1rem solid #E8E8E8;
+    border-radius: 1rem;
+}
+
+.listingCards img {
+    width: 25rem;
+    height: 20rem;
+}
+
+.listingInfo {
+    padding: 0.4rem 0.6rem;
+}
+
+.headInfo {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+.headInfo p {
+    margin: 0;
+}
+
+.headInfo .headInfoTitle {
+    text-align: start;
+}
+
+.headInfo .headInfoDetails {
+    text-align: end;
+}

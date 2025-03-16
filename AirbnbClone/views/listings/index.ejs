@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <%- include('includes/head.ejs'); %>
+      <link rel="stylesheet" href="/index.css">
+      <title>Airbnb</title>
+</head>
+
+<body>
+   <header>
+      <h2>Welcome...</h2>
+   </header>
+
+   <main>
+      <% for( let listing of listings ) { %>
+         <a href="/listings/<%= listing._id %>">
+            <div class="listingCards">
+               <img src="<%= listing.image %>" alt="sample view">
+
+               <div class="listingInfo">
+                  <div class="headInfo">
+                     <p class="headInfoTitle">
+                        <%= listing.title %>
+                     </p>
+
+                     <div class="headInfoDetails">
+                        <div>
+                           <p>&#8377;<%= listing.price.toLocaleString("en-IN") %> per day</p>
+                        </div>
+                        <div>
+                           <p>
+                              <%= listing.location %>, <%= listing.country.toLocaleLowerCase().replace(/\b\w/g,
+                                    function(char) { return char.toUpperCase(); }); %>
+                           </p>
+                        </div>
+                     </div>
+                  </div>
+
+                  <hr>
+
+                  <div class="description">
+                     <%= listing.description %>
+                  </div>
+               </div>
+
+            </div>
+         </a>
+
+
+         <% } %>
+   </main>
+
+   <hr>
+   <footer>
+      <a href="http://localhost:8080/">Contact Us</a>
+      <form action="/listings/add" method="get">
+         <button type="submit">Add Your Business</button>
+      </form>
+      <a href="http://localhost:8080/listings/add">Add</a>
+   </footer>
+
+</body>
+
+</html>
