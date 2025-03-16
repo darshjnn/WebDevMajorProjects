@@ -41,6 +41,17 @@ a:hover ~ .hover {
     transition: all 0.2s ease-in-out;
 }
 
+.head {
+    display: flex;
+    justify-content: center;
+    font-size: xx-large;
+    font-weight: 800;
+}
+
+.head a {
+    width: fit-content;
+}
+
 /* Custom Scroll Bar */
 /* width */
 ::-webkit-scrollbar {

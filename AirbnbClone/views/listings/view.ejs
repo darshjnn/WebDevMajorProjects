@@ -14,11 +14,21 @@
 <body>
     <%- include('includes/navbar.ejs') %>
         <main>
-            <a href="http://localhost:8080/listings/<%= listing._id %>/edit">Edit Listing...</a>
+            <div class="head">
+                <div>
+                    <a href="#">
+                        <%= listing.title %>...
+                    </a>
+                    <div class="hover"></div>
+                </div>
+            </div>
             <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST">
                 <button type="submit">Delete Listing...</button>
+                <a href="http://localhost:8080/listings/">Go back...</a>
+
+                <a href="http://localhost:8080/listings/<%= listing._id %>/edit">Edit Listing...</a>
             </form>
-            <a href="http://localhost:8080/listings/">Go back...</a>
+
         </main>
 
         <%- include('includes/footer.ejs') %>

@@ -15,6 +15,13 @@
     <%- include('includes/navbar.ejs') %>
 
     <main>
+        <div class="head">
+            <div>
+                <a href="">Edit Your Listing...</a>
+                <div class="hover"></div>
+            </div>
+        </div>
+
         <form action="/listings/<%= listing._id %>?_method=PATCH" method="POST">
             <div>
                 <label for="titleInp">Change Title???:&nbsp;</label>
@@ -53,13 +60,14 @@
                 <br>
             </div>
 
-            <div>
-                <button type="submit">Edit Listing...</button>
+            <div class="submitBtn">
+                    <a href="http://localhost:8080/listings/">Go back...</a>
+                    <button type="submit">Edit Listing...</button>
             </div>
         </form>
     </main>
 
-    <%- include('includes/footer.ejs') %>
+    <%- include('includes/footer.ejs') %> 
 </body>
 
 </html>

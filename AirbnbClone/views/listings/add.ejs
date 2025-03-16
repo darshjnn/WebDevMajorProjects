@@ -13,6 +13,13 @@
     <%- include('includes/navbar.ejs') %>
 
         <main>
+            <div class="head">
+                <div>
+                    <a href="#">Add Your Listing...</a>
+                    <div class="hover"></div>
+                </div>
+            </div>
+
             <form action="/listings" method="post">
                 <div>
                     <label for="titleInp">Enter Title:&nbsp;</label>
@@ -52,7 +59,8 @@
                     <br>
                 </div>
 
-                <div>
+                <div class="submitBtn">
+                    <a href="http://localhost:8080/listings/">Go back...</a>
                     <button type="submit">Add Listing...</button>
                 </div>
             </form>
