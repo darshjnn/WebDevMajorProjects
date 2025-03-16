@@ -5,7 +5,7 @@
     "method-override": "^3.0.0",
     "mongoose": "^8.12.1"
   },
-  "name": "airbnbclone",
+  "name": "hotelcatalogue",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",

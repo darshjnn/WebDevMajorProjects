@@ -1,4 +1,4 @@
-# Airbnb Clone
+# Hotel Catalogue
 
 Features:
 1. Modular Code.
