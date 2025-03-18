@@ -5,6 +5,9 @@ import { fileURLToPath } from 'url';
 import mongoose from 'mongoose';
 import methodOverride from 'method-override';
 import { Listing } from './models/listings.js';
+import { wrapAsync } from './utils/wrapAsync.js';
+import { ExpressError } from './utils/ExpressError.js';
+import { listingSchemaValidate } from './schema.js';
 
 const app = express();
 const port = 8080;
@@ -46,6 +49,21 @@ main()
         console.log(err);
     });
 
+
+// Function for Implementing Joi for Server-side Schema Validation.
+const validateListing = (req, res, next) => {
+    let result = listingSchemaValidate.validate(req.body);
+    console.log(result);
+    let { error } = result;
+
+    if (error) {
+        let errorMsg = error.details.map((e) => e.message).join(', ');
+        throw new ExpressError(400, errorMsg);
+    } else {
+        next();
+    }
+}
+
 // Root
 app.get('/', async (req, res) => {
     res.redirect('/listings');
@@ -53,49 +71,111 @@ app.get('/', async (req, res) => {
 
 // View all the Listings
 // Index Route
-app.get('/listings', async (req, res) => {
-    let listings = await Listing.find({});
-    res.render('listings/index.ejs', { listings });
-});
+app.get('/listings',
+    wrapAsync(async (req, res) => {
+        let listings = await Listing.find({});
+        res.render('listings/index.ejs', { listings });
+    })
+);
 
 // Create Route
-app.get('/listings/add', (req, res) => {
-    res.render('listings/add.ejs');
-});
+app.get('/listings/add',
+    wrapAsync((req, res) => {
+        res.render('listings/add.ejs');
+    })
+);
 
-app.post('/listings', async (req, res) => {
-    let listing = req.body.listing;
-    await new Listing(listing).save();
-    res.redirect('/listings');
-});
+// Passing validateListing() as a Middleware for Server-side Schema Validation.
+app.post('/listings', validateListing,
+    wrapAsync(async (req, res, next) => {
+        // if (!req.body.listing) {
+        //     throw new ExpressError(400, 'Send Valid Data...');
+        // }
+
+        let listing = req.body.listing;
+        await new Listing(listing).save();
+        res.redirect('/listings');
+    })
+);
 
 // Show Route
-app.get('/listings/:id', async (req, res) => {
-    let { id } = req.params;
-    let listing = await Listing.findById(id);
-    res.render('listings/view.ejs', { listing });
-});
+app.get('/listings/:id',
+    wrapAsync(async (req, res) => {
+        let { id } = req.params;
+        let listing = await Listing.findById(id);
+        if (!listing) {
+            throw new ExpressError(404, 'Listing Not Found...');
+        }
+
+        res.render('listings/view.ejs', { listing });
+    })
+);
 
 // Edit Route
-app.get('/listings/:id/edit', async (req, res) => {
-    let { id } = req.params;
-    let listing = await Listing.findById(id);
-    res.render('listings/edit.ejs', { listing });
-});
+app.get('/listings/:id/edit',
+    wrapAsync(async (req, res) => {
+        let { id } = req.params;
+        let listing = await Listing.findById(id);
 
-app.patch('/listings/:id', async (req, res) => {
-    let { id } = req.params;
-    await Listing.findByIdAndUpdate(
-        id,
-        { ...req.body.listing },
-        { runValidators: true }
-    );
-    res.redirect(`/listings/${id}`);
-});
+        if (!listing) {
+            throw new ExpressError(404, 'Listing Not Found...');
+        }
+
+        res.render('listings/edit.ejs', { listing });
+    })
+);
+
+// Passing validateListing() as a Middleware for Server-side Schema Validation.
+app.patch('/listings/:id', validateListing,
+    wrapAsync(async (req, res) => {
+        let { id } = req.params;
+
+        // Implementing Joi for Server-side Schema Validation.
+        let result = listingSchemaValidate.validate(req.body);
+        console.log(result);
+        if (result.error) {
+            throw new ExpressError(400, 'Send Valid Data...');
+        }
+
+        let listing = await Listing.findById(id);
+
+        if (!listing) {
+            throw new ExpressError(404, 'Listing Not Found...');
+        }
+
+        await Listing.findByIdAndUpdate(
+            id,
+            { ...req.body.listing },
+            { runValidators: true }
+        );
+        res.redirect(`/listings/${id}`);
+    })
+);
 
 // Destroy Route
-app.delete('/listings/:id', async (req, res) => {
-    let { id } = req.params;
-    await Listing.findByIdAndDelete(id);
-    res.redirect('/listings');
+app.delete('/listings/:id',
+    wrapAsync(async (req, res) => {
+        let { id } = req.params;
+        let listing = await Listing.findById(id);
+
+        if (!listing) {
+            throw new ExpressError(404, 'Listing Not Found...');
+        }
+
+        await Listing.findByIdAndDelete(id);
+        res.redirect('/listings');
+    })
+);
+
+// Throwing Page Not Fount error for invalid routes
+app.all('*', (req, res, next) => {
+    // next(new ExpressError(404, 'Page Not Found!!!'));
+    res.render('errors/error404.ejs');
+});
+
+// Error Handling Middleware
+app.use((err, req, res, next) => {
+    let { status = 500, message = 'Oops! Error Occurred...' } = err;
+    // console.log(err);
+    res.status(status).render('errors/error.ejs', { status, message });
 });

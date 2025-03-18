@@ -1,0 +1,19 @@
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1, h2 {
+    margin: 0;
+}
+
+.error404Img {
+    height: 25rem;
+    align-self: center;
+}
+
+.errorWarnImg {
+    height: 20rem;
+    align-self: center;
+}

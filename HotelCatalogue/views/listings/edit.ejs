@@ -25,38 +25,38 @@
         <form action="/listings/<%= listing._id %>?_method=PATCH" method="POST">
             <div>
                 <label for="titleInp">Change Title???:&nbsp;</label>
-                <input type="text" name="listing[title]" id="titleInp" placeholder="Title of your listing..." value="<%= listing.title %>">
+                <input type="text" name="listing[title]" id="titleInp" placeholder="Title of your listing..." value="<%= listing.title %>" required>
                 <br>
             </div>
 
             <div>
                 <label for="descText">Change description???:&nbsp;</label>
                 <textarea name="listing[description]" id="descText"
-                    placeholder="Description for your listing..."><%= listing.description %></textarea>
+                    placeholder="Description for your listing..." required><%= listing.description %></textarea>
                 <br>
             </div>
 
             <div>
                 <label for="imgInp">Change Image URL for your listing???:&nbsp;</label>
-                <input type="text" name="listing[image]" id="imgInp" placeholder="Enter URL..." value="<%= listing.image %>">
+                <input type="text" name="listing[image]" id="imgInp" placeholder="Enter URL..." value="<%= listing.image %>" required>
                 <br>
             </div>
 
             <div>
                 <label for="priceInp">Change Price per day???:&nbsp;</label>
-                <input type="number" name="listing[price]" id="priceInp" placeholder="Enter pricing..." value="<%= listing.price %>">
+                <input type="number" name="listing[price]" id="priceInp" placeholder="Enter pricing..." value="<%= listing.price %>" required>
                 <br>
             </div>
 
             <div>
                 <label for="countryInp">Change Country???:&nbsp;</label>
-                <input type="text" name="listing[country]" id="countryInp" placeholder="Country..." value="<%= listing.country %>">
+                <input type="text" name="listing[country]" id="countryInp" placeholder="Country..." value="<%= listing.country %>" required>
                 <br>
             </div>
 
             <div>
                 <label for="locationInp">Change Location???:&nbsp;</label>
-                <input type="text" name="listing[location]" id="locationInp" placeholder="Location of your listing..." value="<%= listing.location %>">
+                <input type="text" name="listing[location]" id="locationInp" placeholder="Location of your listing..." value="<%= listing.location %>" required>
                 <br>
             </div>
 

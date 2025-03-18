@@ -58,7 +58,7 @@ a:hover ~ .hover {
 /* Custom Scroll Bar */
 /* width */
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 8px;
 }
 
 /* Track */
@@ -68,13 +68,11 @@ a:hover ~ .hover {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    transition: all ease-in-out 0.3s;
     border-radius: 0.8rem;
     background: #526D82;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    transition: all ease-in-out 0.3s;
     background: #DDE6ED;
 }

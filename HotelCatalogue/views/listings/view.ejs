@@ -17,14 +17,39 @@
             <div class="head">
                 <div>
                     <a href="#">
-                        <%= listing.title %>...
+                        <%= listing.title %>
                     </a>
                     <div class="hover"></div>
                 </div>
             </div>
+
+            <div class="image">
+                <img src="<%= listing.image %>" alt="listing image" srcset="">
+            </div>
+
+            <div class="description">
+                <p>
+                    "<%= listing.description %>"
+                </p>
+            </div>
+
+            <div class="listingInfo">
+                <div>
+                   <p>
+                      <%= listing.location %>, <%= listing.country.toLocaleLowerCase().replace(/\b\w/g,
+                            function(char) { return char.toUpperCase(); }); %>
+                   </p>
+                </div>
+
+                <div class="price">
+                    <p>&#8377;<%= listing.price.toLocaleString("en-IN") %> per day</p>
+                 </div>
+             </div>
+
             <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST">
-                <button type="submit">Delete Listing...</button>
                 <a href="http://localhost:8080/listings/">Go back...</a>
+
+                <button type="submit">Delete Listing...</button>
 
                 <a href="http://localhost:8080/listings/<%= listing._id %>/edit">Edit Listing...</a>
             </form>

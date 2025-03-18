@@ -2,12 +2,14 @@
 
 This is a simple cataloging system where the user can catalogue all the listings for show casing.
 
-Features:
+<br>__Features__: 
 1. Modular Code.
 2. Well-defined Schema.
-3. Perform CRUD operations.
+3. Perform CRUD Operations.
+4. Implemented Error Handling Middlewares.
+5. Used '__joi__' for Server-side Schema Validation.
 
-Configuring the project:
+<br>__Configuring the project__:
 1. Open the Folder in IDE.
 
 2. Run '__npm install__' on terminal to install all the dependencies.

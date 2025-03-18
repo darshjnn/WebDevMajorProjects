@@ -1,0 +1,30 @@
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.image {
+    margin-top: 1rem;
+}
+
+.image img {
+    height: 25rem;
+    width: 35rem;
+    border-radius: 2rem;
+}
+
+.listingInfo {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.listingInfo p {
+    margin: 0.8rem 0;
+}
+
+form {
+    flex-direction: row;
+    gap: 1rem;
+}

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('../listings/includes/head.ejs'); %>
+    <link rel="shortcut icon" href="/errorWarn.svg" type="image/x-icon">
+    <link rel="stylesheet" href="/errors/error.css">
+    <title>Error <%= status %></title>
+</head>
+<body>
+    <%- include('../listings/includes/navbar.ejs') %>
+    
+    <main>
+        <h1>
+            <a href="">Error: <%= status %></a>
+            <div class="hover"></div>
+        </h1>
+
+        <h3>
+            <%= message %>
+        </h3>
+
+        <img src="/errorWarn.svg" alt="Error" class="errorWarnImg">
+    </main>
+
+    <%- include('../listings/includes/footer.ejs') %>
+</body>
+</html>

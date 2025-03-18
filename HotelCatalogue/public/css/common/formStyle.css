@@ -35,11 +35,11 @@ form label {
 form a {
     color: #1E201E;
     text-align: center;
-    background-color: #F6B17A;
+    background-color: #78a083e6;
 }
 
 form button {
-    background-color: #78a083e6;
+    background-color: #F6B17A;
 }
 
 form div:hover label, form button:hover, form a:hover {
