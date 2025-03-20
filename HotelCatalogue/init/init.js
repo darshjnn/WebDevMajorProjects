@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { Listing } from '../models/listings.js';
-import {listings} from './listingsData.js';
+import { listings } from './listingsData.js';
 
 // Setting up the connection with MongoDB.
 const MONGO_URL = 'mongodb://127.0.0.1:27017/hotelcatalogue';

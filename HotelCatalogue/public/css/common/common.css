@@ -25,6 +25,9 @@ main {
     background-color: #dde6eda1;
     height: 0.15rem;
     margin: 0.5rem 0.8rem;
+    width: 80%;
+    align-self: center;
+    border-radius: 1rem;
 }
 
 a {

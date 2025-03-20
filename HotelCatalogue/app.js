@@ -4,10 +4,15 @@ import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import mongoose from 'mongoose';
 import methodOverride from 'method-override';
+
 import { Listing } from './models/listings.js';
+import { Review } from './models/reviews.js';
 import { wrapAsync } from './utils/wrapAsync.js';
 import { ExpressError } from './utils/ExpressError.js';
+
 import { listingSchemaValidate } from './schema.js';
+import { reviewsSchemaValidate } from './schema.js';
+
 
 const app = express();
 const port = 8080;
@@ -50,7 +55,7 @@ main()
     });
 
 
-// Function for Implementing Joi for Server-side Schema Validation.
+// Functions for Implementing Joi for Server-side Listing Schema Validation.
 const validateListing = (req, res, next) => {
     let result = listingSchemaValidate.validate(req.body);
     console.log(result);
@@ -63,6 +68,20 @@ const validateListing = (req, res, next) => {
         next();
     }
 }
+
+// Functions for Implementing Joi for Server-side Review Schema Validation.
+const validateReview = (req, res, next) => {
+    let result = reviewsSchemaValidate.validate(req.body);
+    console.log(result);
+    let { error } = result;
+
+    if (error) {
+        let errorMsg = error.details.map((e) => e.message).join(', ');
+        throw new ExpressError(400, errorMsg);
+    } else {
+        next();
+    }
+};
 
 // Root
 app.get('/', async (req, res) => {
@@ -79,11 +98,9 @@ app.get('/listings',
 );
 
 // Create Route
-app.get('/listings/add',
-    wrapAsync((req, res) => {
-        res.render('listings/add.ejs');
-    })
-);
+app.get('/listings/add', (req, res) => {
+    res.render('listings/add.ejs');
+});
 
 // Passing validateListing() as a Middleware for Server-side Schema Validation.
 app.post('/listings', validateListing,
@@ -102,7 +119,7 @@ app.post('/listings', validateListing,
 app.get('/listings/:id',
     wrapAsync(async (req, res) => {
         let { id } = req.params;
-        let listing = await Listing.findById(id);
+        let listing = await Listing.findById(id).populate('reviews');
         if (!listing) {
             throw new ExpressError(404, 'Listing Not Found...');
         }
@@ -167,6 +184,33 @@ app.delete('/listings/:id',
     })
 );
 
+// Post Route for Reviews
+app.post('/listings/:id/review', validateReview,
+    wrapAsync(async (req, res) => {
+        let { id } = req.params;
+        let listing = await Listing.findById(id);
+        let review = new Review(req.body.review);
+
+        listing.reviews.push(review);
+        await review.save();
+        await listing.save();
+
+        res.redirect(`/listings/${id}`);
+    })
+);
+
+// Destroy Route for Reviews
+app.delete('/listings/:id/review/:reviewId',
+    wrapAsync(async (req, res) => {
+        let { id, reviewId } = req.params;
+
+        await Listing.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
+        await Review.findByIdAndDelete(reviewId);
+
+        res.redirect(`/listings/${id}`);
+    })
+);
+
 // Throwing Page Not Fount error for invalid routes
 app.all('*', (req, res, next) => {
     // next(new ExpressError(404, 'Page Not Found!!!'));
@@ -176,6 +220,6 @@ app.all('*', (req, res, next) => {
 // Error Handling Middleware
 app.use((err, req, res, next) => {
     let { status = 500, message = 'Oops! Error Occurred...' } = err;
-    // console.log(err);
+    console.log(err);
     res.status(status).render('errors/error.ejs', { status, message });
 });

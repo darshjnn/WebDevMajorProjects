@@ -1,8 +1,8 @@
 form {
-    margin-top: 1rem;
+    margin-top: 1.6rem;
     background-color: #ecdfccee;
-    padding: 1rem;
-    border-radius: 1.6rem;
+    padding: 0.6rem;
+    border-radius: 1.2rem;
     display: flex;
     flex-direction: column;
     justify-self: center;
@@ -11,34 +11,49 @@ form {
 }
 
 form div {
+    border: 0.1rem rgba(0, 0, 0, 0.575) solid;
     box-shadow: 5px 3px 5px rgba(0, 0, 0, 0.781);
+    border-radius: 0.8rem;
+    padding: 0.5rem;
     margin-bottom: 0.7rem;
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 0.8fr 2fr;
+    grid-template-rows: 100%;
     column-gap: 0.3rem;
 }
 
-form * {
-    font-size: medium;
+form div * {
+    font-size: 0.9rem;
     color: #1E201E;
-    padding: 0.5rem;
     font-weight: 500;
-    border-radius: 0.6rem;
-    transition: all 0.2s ease-in-out;
+    border-radius: 0.3rem;
+    transition: background-color 0.2s ease-in-out;
     border: 0.1rem rgba(0, 0, 0, 0.575) solid;
 }
 
 form label {
+    font-size: medium;
+    text-align: center;
     background-color: #9ec8b9cb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form input, form textarea {
+    padding: 0.5rem;
 }
 
 form a {
+    font-size: medium;
+    padding: 0.6rem;
     color: #1E201E;
     text-align: center;
     background-color: #78a083e6;
 }
 
 form button {
+    font-size: medium;
     background-color: #F6B17A;
 }
 

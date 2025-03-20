@@ -5,58 +5,132 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%- include('includes/head.ejs'); %>
-        <link rel="stylesheet" href="/view.css">
-        <title>
-            <%= listing.title %>
-        </title>
+    <link rel="stylesheet" href="/view.css">
+    <title>
+        <%= listing.title %>
+    </title>
 </head>
 
 <body>
     <%- include('includes/navbar.ejs') %>
-        <main>
-            <div class="head">
-                <div>
-                    <a href="#">
-                        <%= listing.title %>
-                    </a>
-                    <div class="hover"></div>
-                </div>
+    <main>
+        <div class="head">
+            <div>
+                <a href="#">
+                    <%= listing.title %>
+                </a>
+                <div class="hover"></div>
             </div>
-
-            <div class="image">
-                <img src="<%= listing.image %>" alt="listing image" srcset="">
-            </div>
-
-            <div class="description">
+        </div>
+        
+        <div class="image">
+            <img src="<%= listing.image %>" alt="listing image" srcset="">
+        </div>
+        
+        <div class="description">
+            <p>
+                "<%= listing.description %>"
+            </p>
+        </div>
+        
+        <div class="listingInfo">
+            <div>
                 <p>
-                    "<%= listing.description %>"
+                    <%= listing.location %>, <%= listing.country.toLocaleLowerCase().replace(/\b\w/g, function(char)
+                    { return char.toUpperCase(); }); %>
                 </p>
             </div>
-
-            <div class="listingInfo">
-                <div>
-                   <p>
-                      <%= listing.location %>, <%= listing.country.toLocaleLowerCase().replace(/\b\w/g,
-                            function(char) { return char.toUpperCase(); }); %>
-                   </p>
-                </div>
-
-                <div class="price">
-                    <p>&#8377;<%= listing.price.toLocaleString("en-IN") %> per day</p>
-                 </div>
-             </div>
-
-            <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST">
+            
+            <div class="price">
+                <p>&#8377;<%= listing.price.toLocaleString("en-IN") %> per day</p>
+            </div>
+        </div>
+        
+        <br><br>
+        <div class="hr"></div>
+        
+        <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST" class="actionForm">
+            <div>
                 <a href="http://localhost:8080/listings/">Go back...</a>
-
+            </div>
+            
+            <div>
                 <button type="submit">Delete Listing...</button>
-
+            </div>
+            
+            <div>
                 <a href="http://localhost:8080/listings/<%= listing._id %>/edit">Edit Listing...</a>
+            </div>
+        </form>
+        
+        <br>
+        <div class="hr"></div>
+        <br>
+        
+        <div class="reviews">
+            <div class="reviewsHead">
+                <h2>
+                    <a href="">Give a feedback to serve you better...</a>
+                    <div class="hover"></div>
+                </h2>
+            </div>
+            
+            <form action="/listings/<%= listing._id %>/review" method="POST" class="reviewForm">
+                <div class="rating">
+                    <label for="ratingInp">Give Rating: </label>
+                    <span class="ratingSpan">
+                        <span id="ratingVal">0</span>
+                        <input type="range" name="review[rating]" id="ratingInp" min="0" max="5" value="0" required>
+                    </span>
+                </div>
+                
+                <div>
+                    <label for="commentInp">Share your Thoughts...</label>
+                    <textarea name="review[comment]" id="commentInp" placeholder="How was your experience???" required></textarea>
+                </div>
+                
+                <div>
+                    <a href="http://localhost:8080/listings/">Go back...</a>
+                    <button type="submit">Submit your review...</button>
+                </div>
             </form>
-
-        </main>
-
-        <%- include('includes/footer.ejs') %>
+        </div>
+        
+        <br>
+        <div class="hr"></div>
+        <br>
+        
+        <div class="userReviews">
+            <div class="reviewsHead">
+                <h2>
+                    <a href="">User Reviews...</a>
+                    <div class="hover"></div>
+                </h2>
+            </div>
+            
+            <% for( let review of listing.reviews ) { %>
+                <li>
+                    <b>Comment: </b><%= review.comment %>                        
+                    <br>
+                    
+                    <b>Rating: </b><%= review.rating %> stars
+                    
+                    <form action="/listings/<%= listing._id %>/review/<%= review._id %>?_method=DELETE" method="POST" class="actionForm">
+                        <div>
+                            <button type="submit">Delete Review...</button>
+                        </div>
+                    </form>
+                    
+                </li>
+                <br>
+            <% } %>
+                
+        </div>
+    </main>
+        
+    <%- include('includes/footer.ejs') %>
+    <script src="/view.js"></script>
+        
 </body>
-
+    
 </html>

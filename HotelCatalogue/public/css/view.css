@@ -24,7 +24,56 @@ main {
     margin: 0.8rem 0;
 }
 
-form {
+.actionForm {
     flex-direction: row;
-    gap: 1rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+}
+
+.actionForm div {
+    grid-template-columns: 1fr;
+    border: none;
+    background-color: transparent;
+    box-shadow: none;
+    margin: 0;
+}
+
+.reviewsHead {
+    display: flex;
+    justify-content: center;
+}
+
+.reviewsHead h2 {
+    display: inline-block;
+}
+
+.reviewForm {
+    margin-top: 0;
+    width: 30rem;
+    flex-direction: column;
+}
+
+.reviewForm .ratingSpan {
+    display: grid;
+    grid-template-columns: 0.5fr 2fr;
+    margin: 0;
+}
+
+.reviewForm .ratingSpan span {
+    border: none;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (max-width: 550px) {
+    .image img {
+        height: 10rem;
+        width: 25rem;
+    }
+
+    .reviewForm {
+        width: 25rem;
+    }
 }
