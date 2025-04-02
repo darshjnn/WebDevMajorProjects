@@ -35,7 +35,11 @@ const listingSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Review'
         }
-    ]
+    ],
+    owner: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User'
+    }
 });
 
 // Propagating delete request of listing to all its reviews also

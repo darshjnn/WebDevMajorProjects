@@ -1,5 +1,8 @@
 import mongoose from "mongoose";
+
 import { Listing } from '../models/listings.js';
+import { User } from '../models/users.js';
+
 import { listings } from './listingsData.js';
 
 // Setting up the connection with MongoDB.
@@ -17,11 +20,33 @@ main()
         console.log(err);
     });
 
-// Initialize Database
-const initListingsData = async () => {
-    await Listing.deleteMany({});
-    await Listing.insertMany(listings.data);
-    console.log("Initialized Database afresh...")
+// Adding an Owner for all the Listings
+const addOwner = async () => {
+    await User.deleteMany({});
+
+    // Adding a User, which will act as Owner
+    const userInfo = new User(
+        { email: 'champaklal@gmail.com', name: 'Champak Lal', username: 'champu' });
+
+    console.log(`\nOwner for pre listed listings: ${userInfo}\n`);
+
+    await User.register(userInfo, 'champu');
+
 };
 
-initListingsData();
+await addOwner();
+
+// Initialize Listings Database
+const initListingsData = async () => {
+    await Listing.deleteMany({});
+
+    // Mapping the Owner to each listing
+    let owner = await User.findOne({ 'username': 'champu' });
+    let ownerId = owner._id.toString();
+    listings.data = listings.data.map((obj) => ({ ...obj, owner: `${ownerId}` }));
+
+    await Listing.insertMany(listings.data);
+    console.log("Initialized Database afresh...");
+};
+
+await initListingsData();

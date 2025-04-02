@@ -3,9 +3,9 @@
 This is a simple cataloging system where the user can catalogue all the listings for show casing.
 
 ## Features: 
-1. Modular Code.
+1. Login & Sign up functionality.
 
-2. Well-defined Schema.
+2. Authentication & Authorization.
 
 3. Perform CRUD Operations on catalogue.
 
@@ -16,6 +16,8 @@ This is a simple cataloging system where the user can catalogue all the listings
 6. Used '__joi__' for Server-side Schema Validation.
 
 7. Added Comments wherever required.
+
+8. pbkdf2 Hashing Algorithm for Password Hashing.
 
 ## Configuring the project:
 1. Open the Folder on IDE.

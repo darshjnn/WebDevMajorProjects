@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('../listings/includes/head.ejs'); %>
+    <title>Sign Up!!!</title>
+</head>
+<body>
+    <%- include('../listings/includes/navbar.ejs') %>
+
+    <main>
+        <div class="head">
+            <div>
+                <a href="#">Register User...</a>
+                <div class="hover"></div>
+            </div>
+        </div>
+
+        <form action="/users/signup" method="POST" class="form">
+            <div>
+                <label for="nameInp">Your Name:&nbsp;</label>
+                <input type="text" name="users[name]" id="nameInp" placeholder="Your Good Good Name..." required>
+                <br>
+            </div>
+
+            <div>
+                <label for="usernameInp">Enter Username:&nbsp;</label>
+                <input type="text" name="users[username]" id="usernameInp" placeholder="Username Should be unique..." required>
+                <br>
+            </div>
+
+            <div>
+                <label for="emailInp">Enter Email:&nbsp;</label>
+                <input type="text" name="users[email]" id="priceInp" placeholder="Enter Email..." required>
+                <br>
+            </div>
+
+            <div>
+                <label for="passInp">Enter Password:&nbsp;</label>
+                <input type="text" name="users[password]" id="passInp" placeholder="Set a Strong Password..." required>
+                <br>
+            </div>
+
+            <div class="submitBtn">
+                <a href="http://localhost:8080/listings/">Go back...</a>
+                <button type="submit">Register User...</button>
+            </div>
+        </form>
+    </main>
+    
+    <%- include('../listings/includes/footer.ejs') %>
+</body>
+</html>

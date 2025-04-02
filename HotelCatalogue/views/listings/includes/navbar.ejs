@@ -25,14 +25,58 @@
         </div>
 
         <div class="user">
-            <div class="username">
-                <img src="/user.svg" alt="user" srcset="">
-
-                <div>
-                    <a href="">user</a>
+            <% if (!currUser) { %>
+                <div class="sigup">
+                    <a href="http://localhost:8080/users/signup">Sign Up</a>
                     <div class="hover"></div>
                 </div>
-            </div>
+
+                <div>
+                    <a href="http://localhost:8080/users/login">Log In</a>
+                    <div class="hover"></div>
+                </div>
+            <% } %>
+            
+            <% if (currUser) { %>
+                <div class="username">
+                    <img src="/user.svg" alt="user" srcset="">
+
+                    <div>
+                        <a href="#"><%= currUser.username %></a>
+                        <div class="hover"></div>
+                    </div>
+                </div>
+                
+                <div class="logout">
+                    <a href="http://localhost:8080/users/logout">Log Out</a>
+                    <div class="hover"></div>
+                </div>
+            <% } %>
+            
         </div>
     </nav>
 </header>
+
+<% if ((success && success.length)) { %>
+    <div class="flash successFlash" id="flashDiv">
+        <p>
+            <%= success %>
+        </p> 
+
+        <button type="button" id="closeFlash">
+            <img src="/close.svg" alt="close">
+        </button>
+    </div>    
+<% } %>
+
+<% if ((error && error.length)) { %>
+    <div class="flash errorFlash" id="flashDiv">
+        <p>
+            <%= error %>
+        </p> 
+
+        <button type="button" id="closeFlash">
+            <img src="/close.svg" alt="close">
+        </button>
+    </div>    
+<% } %>

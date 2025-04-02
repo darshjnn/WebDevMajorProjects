@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('../listings/includes/head.ejs'); %>
+    <title>Log In!!!</title>
+</head>
+<body>
+    <%- include('../listings/includes/navbar.ejs') %>
+
+    <main>
+        <form action="/users/login" method="POST">
+            <div>
+                <label for="usernameInp">Enter Username:&nbsp;</label>
+                <input type="text" name="username" id="usernameInp" placeholder="Enter your Username..." required>
+                <br>
+            </div>
+
+            <div>
+                <label for="passInp">Enter Password:&nbsp;</label>
+                <input type="password" name="password" id="passInp" placeholder="Enter your Password..." required>
+                <br>
+            </div>
+
+            <div class="submitBtn">
+                <a href="http://localhost:8080/listings/">Go back...</a>
+                <button type="submit">Log In...</button>
+            </div>
+        </form>
+    </main>
+
+    <%- include('../listings/includes/footer.ejs') %>    
+</body>
+</html>

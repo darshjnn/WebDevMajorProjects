@@ -14,6 +14,11 @@ main {
     border-radius: 2rem;
 }
 
+.description h3 {
+    text-align: center;
+    font-style: italic;
+}
+
 .listingInfo {
     display: flex;
     flex-direction: row;
@@ -65,6 +70,56 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.showReviews {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    max-width: 70rem;
+}
+
+.showReviews .reviewCards {
+    border: 0.1rem #e8e8e8 solid;
+    background-color: #021526bd;
+    padding: 0.5rem;
+    width: 15rem;
+    border-radius: 0.6rem;
+}
+
+.reviewCards {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 8rem;
+    width: 12rem;
+}
+
+.reviewComment {
+    flex: 1;
+}
+
+.reviewAction p {
+    text-align: center;
+    padding: 0;
+    margin: 0;
+}
+
+.delReviewForm {
+    padding: 0;
+    margin: 0.5rem;
+}
+
+.delReviewForm div {
+    padding: 0;
+    grid-template-columns: 1fr;
+    border: none;
+    background-color: transparent;
+    box-shadow: none;
+    margin: 0;
 }
 
 @media (max-width: 550px) {

@@ -4,15 +4,16 @@ import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import mongoose from 'mongoose';
 import methodOverride from 'method-override';
+import session from 'express-session';
+import flash from 'connect-flash';
+import passport from 'passport';
+import LocalStrategy from 'passport-local';
 
-import { Listing } from './models/listings.js';
-import { Review } from './models/reviews.js';
-import { wrapAsync } from './utils/wrapAsync.js';
-import { ExpressError } from './utils/ExpressError.js';
+import { User } from './models/users.js';
 
-import { listingSchemaValidate } from './schema.js';
-import { reviewsSchemaValidate } from './schema.js';
-
+import listings from './routes/listings.js';
+import reviews from './routes/reviews.js';
+import users from './routes/users.js';
 
 const app = express();
 const port = 8080;
@@ -34,7 +35,7 @@ app.use(express.static(join(__dirname, '/public/css')));
 app.use(express.static(join(__dirname, '/public/js')));
 app.use(express.static(join(__dirname, '/public/assets')));
 
-// Setting up the Serve
+// Setting up the Server
 app.listen(port, () => {
     console.log(`Listening on ${port}...`);
 });
@@ -54,162 +55,51 @@ main()
         console.log(err);
     });
 
-
-// Functions for Implementing Joi for Server-side Listing Schema Validation.
-const validateListing = (req, res, next) => {
-    let result = listingSchemaValidate.validate(req.body);
-    console.log(result);
-    let { error } = result;
-
-    if (error) {
-        let errorMsg = error.details.map((e) => e.message).join(', ');
-        throw new ExpressError(400, errorMsg);
-    } else {
-        next();
-    }
-}
-
-// Functions for Implementing Joi for Server-side Review Schema Validation.
-const validateReview = (req, res, next) => {
-    let result = reviewsSchemaValidate.validate(req.body);
-    console.log(result);
-    let { error } = result;
-
-    if (error) {
-        let errorMsg = error.details.map((e) => e.message).join(', ');
-        throw new ExpressError(400, errorMsg);
-    } else {
-        next();
+// Using express-sessions
+const expressSessions = {
+    secret: 'ChampakLalIsTheSecretKeyLOL!!!',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        expires: Date.now() + (7 * 24 * 60 * 60 * 1000), // Passing the time in milliseconds 
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+        httpOnly: true
     }
 };
+
+app.use(session(expressSessions));
+app.use(flash());
+
+// Implementing Authorization & Authentication
+// pbkdf2 Hashing Algorithm is used
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+// Saving Information in Locals
+app.use((req, res, next) => {
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
+    res.locals.currUser = req.user;
+    next();
+});
 
 // Root
 app.get('/', async (req, res) => {
     res.redirect('/listings');
-})
-
-// View all the Listings
-// Index Route
-app.get('/listings',
-    wrapAsync(async (req, res) => {
-        let listings = await Listing.find({});
-        res.render('listings/index.ejs', { listings });
-    })
-);
-
-// Create Route
-app.get('/listings/add', (req, res) => {
-    res.render('listings/add.ejs');
 });
 
-// Passing validateListing() as a Middleware for Server-side Schema Validation.
-app.post('/listings', validateListing,
-    wrapAsync(async (req, res, next) => {
-        // if (!req.body.listing) {
-        //     throw new ExpressError(400, 'Send Valid Data...');
-        // }
+// Route for /listings
+app.use('/listings', listings);
 
-        let listing = req.body.listing;
-        await new Listing(listing).save();
-        res.redirect('/listings');
-    })
-);
+// Route for /listings/:id/reviews
+app.use('/listings/:id/review', reviews);
 
-// Show Route
-app.get('/listings/:id',
-    wrapAsync(async (req, res) => {
-        let { id } = req.params;
-        let listing = await Listing.findById(id).populate('reviews');
-        if (!listing) {
-            throw new ExpressError(404, 'Listing Not Found...');
-        }
-
-        res.render('listings/view.ejs', { listing });
-    })
-);
-
-// Edit Route
-app.get('/listings/:id/edit',
-    wrapAsync(async (req, res) => {
-        let { id } = req.params;
-        let listing = await Listing.findById(id);
-
-        if (!listing) {
-            throw new ExpressError(404, 'Listing Not Found...');
-        }
-
-        res.render('listings/edit.ejs', { listing });
-    })
-);
-
-// Passing validateListing() as a Middleware for Server-side Schema Validation.
-app.patch('/listings/:id', validateListing,
-    wrapAsync(async (req, res) => {
-        let { id } = req.params;
-
-        // Implementing Joi for Server-side Schema Validation.
-        let result = listingSchemaValidate.validate(req.body);
-        console.log(result);
-        if (result.error) {
-            throw new ExpressError(400, 'Send Valid Data...');
-        }
-
-        let listing = await Listing.findById(id);
-
-        if (!listing) {
-            throw new ExpressError(404, 'Listing Not Found...');
-        }
-
-        await Listing.findByIdAndUpdate(
-            id,
-            { ...req.body.listing },
-            { runValidators: true }
-        );
-        res.redirect(`/listings/${id}`);
-    })
-);
-
-// Destroy Route
-app.delete('/listings/:id',
-    wrapAsync(async (req, res) => {
-        let { id } = req.params;
-        let listing = await Listing.findById(id);
-
-        if (!listing) {
-            throw new ExpressError(404, 'Listing Not Found...');
-        }
-
-        await Listing.findByIdAndDelete(id);
-        res.redirect('/listings');
-    })
-);
-
-// Post Route for Reviews
-app.post('/listings/:id/review', validateReview,
-    wrapAsync(async (req, res) => {
-        let { id } = req.params;
-        let listing = await Listing.findById(id);
-        let review = new Review(req.body.review);
-
-        listing.reviews.push(review);
-        await review.save();
-        await listing.save();
-
-        res.redirect(`/listings/${id}`);
-    })
-);
-
-// Destroy Route for Reviews
-app.delete('/listings/:id/review/:reviewId',
-    wrapAsync(async (req, res) => {
-        let { id, reviewId } = req.params;
-
-        await Listing.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
-        await Review.findByIdAndDelete(reviewId);
-
-        res.redirect(`/listings/${id}`);
-    })
-);
+// Route for /users
+app.use('/users', users);
 
 // Throwing Page Not Fount error for invalid routes
 app.all('*', (req, res, next) => {

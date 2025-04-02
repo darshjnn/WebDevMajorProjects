@@ -73,19 +73,19 @@ form label, form button {
 }
 
 @media (max-width: 800px) {
-    form {
+    .form {
         width: 30rem;
     }
 }
 
 @media (max-width: 580px) {
-    form {
+    .form {
         width: 25rem;
     }
 }
 
 @media (max-width: 480px) {
-    form {
+    .form {
         width: 20rem;
     }
 }
