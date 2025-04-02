@@ -7,17 +7,19 @@ This is a simple cataloging system where the user can catalogue all the listings
 
 2. Authentication & Authorization.
 
-3. Perform CRUD Operations on catalogue.
+3. Implemented MVC (Model, View, Controller) Framework.
 
-4. Add reviews for any catalogue.
+4. Perform CRUD Operations on catalogue.
 
-5. Implemented Error Handling Middlewares.
+5. Add reviews for any catalogue.
 
-6. Used '__joi__' for Server-side Schema Validation.
+6. Implemented Error Handling Middlewares.
 
-7. Added Comments wherever required.
+7. Used '__joi__' for Server-side Schema Validation.
 
-8. pbkdf2 Hashing Algorithm for Password Hashing.
+8. Added Comments wherever required.
+
+9. pbkdf2 Hashing Algorithm for Password Hashing.
 
 ## Configuring the project:
 1. Open the Folder on IDE.
