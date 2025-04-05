@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV != 'production') {
+    await import('dotenv/config');
+}
+
 import express from 'express';
 import { join } from 'path';
 import { dirname } from 'path';
@@ -17,6 +21,10 @@ import users from './routes/users.js';
 
 const app = express();
 const port = 8080;
+
+// console.log(process.env.CLOUD_NAME);
+// console.log(process.env.CLOUD_API_KEY);
+// console.log(process.env.CLOUD_API_SECRET);
 
 // Setting View Engine
 app.set('view engine', 'ejs');

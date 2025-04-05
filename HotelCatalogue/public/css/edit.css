@@ -1,0 +1,10 @@
+.image {
+    grid-template-columns: 1fr;
+    justify-items: center;
+}
+
+.image img {
+    height: 25rem;
+    width: 35rem;
+    border-radius: 2rem;
+}

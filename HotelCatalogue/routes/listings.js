@@ -1,14 +1,19 @@
 import { Router } from 'express';
+import multer from 'multer';
+
+import { cloudinary, storage } from '../cloudConfig.js';
 
 // import { ExpressError } from '../utils/ExpressError.js';
 import { wrapAsync } from '../utils/wrapAsync.js';
 
 import * as listingController from '../controllers/listings.js';
 
-import { isLoggedIn, validateListing, isOwner } from '../middleware.js';
-
+import { isLoggedIn, isOwner } from '../middleware.js';
 
 const listings = Router();
+
+// Setting up Cloud storage
+const upload = multer({ storage });
 
 listings.route('/')
     .get(
@@ -17,10 +22,10 @@ listings.route('/')
     )
     .post(
         // Post Route for adding a Listing
-        // Passing validateListing() as a Middleware for Server-side Schema Validation.
-        isLoggedIn, validateListing, wrapAsync(listingController.createPost)
-);
-    
+        isLoggedIn, upload.single('listing[image]'),
+        wrapAsync(listingController.createPost)
+    );
+
 // Create Route
 listings.get('/add', isLoggedIn, listingController.create);
 
@@ -32,7 +37,8 @@ listings.route('/:id')
     .patch(
         // Patch Route for Edit Listing
         // Passing validateListing() as a Middleware for Server-side Schema Validation.
-        isLoggedIn, isOwner, validateListing, wrapAsync(listingController.editPatch)
+        isLoggedIn, isOwner, upload.single('listing[image]'),
+        wrapAsync(listingController.editPatch)
     )
     .delete(
         // Destroy Route

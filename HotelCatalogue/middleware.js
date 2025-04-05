@@ -3,7 +3,7 @@ import { Review } from './models/reviews.js';
 
 import { ExpressError } from './utils/ExpressError.js';
 
-import { listingSchemaValidate, reviewsSchemaValidate } from './schema.js';
+import { reviewsSchemaValidate } from './schema.js';
 
 // Checking if any User is Logged in
 export const isLoggedIn = (req, res, next) => {
@@ -21,20 +21,6 @@ export const saveRedirectUrl = (req, res, next) => {
         res.locals.redirectUrl = req.session.redirectUrl;
     };
     next();
-};
-
-// Implementing Joi for Server-side Listing Schema Validation.
-export const validateListing = (req, res, next) => {
-    let result = listingSchemaValidate.validate(req.body);
-    console.log(result);
-    let { error } = result;
-
-    if (error) {
-        let errorMsg = error.details.map((e) => e.message).join(', ');
-        throw new ExpressError(400, errorMsg);
-    } else {
-        next();
-    }
 };
 
 // Implementing Joi for Server-side Review Schema Validation.

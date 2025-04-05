@@ -22,7 +22,7 @@
             </div>
         </div>
 
-        <form action="/listings/<%= listing._id %>?_method=PATCH" method="POST" class="form">
+        <form action="/listings/<%= listing._id %>?_method=PATCH" method="POST" enctype="multipart/form-data" class="form">
             <div>
                 <label for="titleInp">Change Title???:&nbsp;</label>
                 <input type="text" name="listing[title]" id="titleInp" placeholder="Title of your listing..." value="<%= listing.title %>" required>
@@ -36,9 +36,13 @@
                 <br>
             </div>
 
+            <div class="oldImage image">
+                <img src="<%= optimizedImg %>" alt="listing image">
+            </div>
+
             <div>
-                <label for="imgInp">Change Image URL for your listing???:&nbsp;</label>
-                <input type="text" name="listing[image]" id="imgInp" placeholder="Enter URL..." value="<%= listing.image %>" required>
+                <label for="imgInp">Change Image for your listing???:&nbsp;</label>
+                <input type="file" name="listing[image]" id="imgInp">
                 <br>
             </div>
 

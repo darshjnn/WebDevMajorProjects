@@ -57,7 +57,7 @@ form button {
     background-color: #F6B17A;
 }
 
-form div:hover label, form button:hover, form a:hover {
+form button:hover, form a:hover {
     background-color: blanchedalmond;
     border: 0.1rem rgba(0, 0, 0, 0.575) solid;
     color: #212121;

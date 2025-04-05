@@ -58,18 +58,19 @@ main {
     flex-direction: column;
 }
 
-.reviewForm .ratingSpan {
-    display: grid;
-    grid-template-columns: 0.5fr 2fr;
-    margin: 0;
+.starability-heartbeat {
+    display: flex;
+    width: 100%;
+    justify-content: center;
 }
 
-.reviewForm .ratingSpan span {
+.starability-heartbeat label {
+    background-color: transparent;
     border: none;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+}
+
+.ratingInp:hover fieldset label {
+    border: none;
 }
 
 .showReviews {
@@ -86,26 +87,20 @@ main {
     border: 0.1rem #e8e8e8 solid;
     background-color: #021526bd;
     padding: 0.5rem;
-    width: 15rem;
-    border-radius: 0.6rem;
-}
-
-.reviewCards {
+    min-width: 15rem;
+    min-height: 8rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: 8rem;
-    width: 12rem;
+    border-radius: 0.6rem;
 }
 
 .reviewComment {
     flex: 1;
 }
 
-.reviewAction p {
+.reviewAction {
     text-align: center;
-    padding: 0;
-    margin: 0;
 }
 
 .delReviewForm {

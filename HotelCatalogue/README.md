@@ -9,9 +9,9 @@ This is a simple cataloging system where the user can catalogue all the listings
 
 3. Implemented MVC (Model, View, Controller) Framework.
 
-4. Perform CRUD Operations on catalogue.
+4. Perform CRUD Operations on catalogue, add reviews.
 
-5. Add reviews for any catalogue.
+5. Used Cloudinary for storing Listing images on cloud.
 
 6. Implemented Error Handling Middlewares.
 
@@ -28,8 +28,10 @@ This is a simple cataloging system where the user can catalogue all the listings
 
 3. Add the data of listings by running '__node init.js__' file in the '*__/init__*' directory.
 
-4. Run '__node app.js__' to start the server.
+4. Setup Cloudinary by creating a .env file and adding values for `CLOUD_NAME`, `CLOUD_API_KEY` and `CLOUD_API_SECRET`. 
 
-5. Open browser and visit on '__localhost:8080__'.
+5. Run '__node app.js__' to start the server.
+
+6. Open browser and visit on '__localhost:8080__'.
 
 #### Author: Darsh Jain

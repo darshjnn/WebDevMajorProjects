@@ -29,9 +29,9 @@ const addOwner = async () => {
         { email: 'champaklal@gmail.com', name: 'Champak Lal', username: 'champu' });
 
     console.log(`\nOwner for pre listed listings: ${userInfo}\n`);
+    console.log('Password is: champu');
 
     await User.register(userInfo, 'champu');
-
 };
 
 await addOwner();

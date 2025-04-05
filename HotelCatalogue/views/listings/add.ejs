@@ -20,7 +20,7 @@
                 </div>
             </div>
 
-            <form action="/listings" method="POST" class="form">
+            <form action="/listings" method="POST" class="form" enctype="multipart/form-data">
                 <div>
                     <label for="titleInp">Enter Title:&nbsp;</label>
                     <input type="text" name="listing[title]" id="titleInp" placeholder="Title of your listing..."
@@ -36,8 +36,8 @@
                 </div>
 
                 <div>
-                    <label for="imgInp">Add Image URL for your listing:&nbsp;</label>
-                    <input type="text" name="listing[image]" id="imgInp" placeholder="Enter URL...">
+                    <label for="imgInp">Upload Image for your listing:&nbsp;</label>
+                    <input type="file" name="listing[image]" id="imgInp">
                     <br>
                 </div>
 
