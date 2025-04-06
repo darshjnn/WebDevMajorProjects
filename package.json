@@ -1,7 +1,11 @@
 {
+  "engines": {
+    "node": "22.14.0"
+  },
   "dependencies": {
-    "cloudinary": "^2.6.0",
+    "cloudinary": "^1.41.3",
     "connect-flash": "^0.1.1",
+    "connect-mongo": "^5.1.0",
     "dotenv": "^16.4.7",
     "ejs": "^3.1.10",
     "express": "^4.21.2",
@@ -25,5 +29,8 @@
   "keywords": [],
   "author": "Darsh",
   "license": "ISC",
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "@types/node": "^22.14.0"
+  }
 }

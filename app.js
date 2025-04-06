@@ -9,6 +9,7 @@ import { fileURLToPath } from 'url';
 import mongoose from 'mongoose';
 import methodOverride from 'method-override';
 import session from 'express-session';
+import MongoStore from 'connect-mongo';
 import flash from 'connect-flash';
 import passport from 'passport';
 import LocalStrategy from 'passport-local';
@@ -18,6 +19,7 @@ import { User } from './models/users.js';
 import listings from './routes/listings.js';
 import reviews from './routes/reviews.js';
 import users from './routes/users.js';
+import { error } from 'console';
 
 const app = express();
 const port = 8080;
@@ -25,6 +27,7 @@ const port = 8080;
 // console.log(process.env.CLOUD_NAME);
 // console.log(process.env.CLOUD_API_KEY);
 // console.log(process.env.CLOUD_API_SECRET);
+// console.log(process.env.ATLASDB_URL)
 
 // Setting View Engine
 app.set('view engine', 'ejs');
@@ -48,11 +51,14 @@ app.listen(port, () => {
     console.log(`Listening on ${port}...`);
 });
 
-// Setting up the connection with MongoDB.
-const MONGO_URL = 'mongodb://127.0.0.1:27017/hotelcatalogue';
 
+// Fetching URL for connection with MongoDB.
+const MONGO_URL = process.env.MONGO_URL;
+const ATLASDB_URL = process.env.ATLASDB_URL;
+
+// Connecting to Local Database
 async function main() {
-    await mongoose.connect(MONGO_URL);
+    mongoose.connect(ATLASDB_URL);
 }
 
 main()
@@ -63,9 +69,23 @@ main()
         console.log(err);
     });
 
-// Using express-sessions
+// Using connect-mongo to sessions information on Atlas Database
+const store = MongoStore.create({
+    mongoUrl: ATLASDB_URL,
+    crypto: {
+        secret: process.env.SECRET
+    },
+    touchAfter: 24 * 3600
+});
+
+store.on('error', () => {
+    console.log('Mongo Session Store is fucked up... :(', error)
+});
+
+// Using express-sessions & passing MongoStore object inside express-sessions
 const expressSessions = {
-    secret: 'ChampakLalIsTheSecretKeyLOL!!!',
+    store, 
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: {
@@ -74,8 +94,9 @@ const expressSessions = {
         httpOnly: true
     }
 };
-
 app.use(session(expressSessions));
+
+// Using connect-flash
 app.use(flash());
 
 // Implementing Authorization & Authentication

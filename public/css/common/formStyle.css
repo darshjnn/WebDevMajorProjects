@@ -52,12 +52,21 @@ form a {
     background-color: #78a083e6;
 }
 
-form button {
+form button, form input[type="file"]::-webkit-file-upload-button {
+    color: #1E201E;
     font-size: medium;
+    font-family: "Titillium Web", sans-serif;
     background-color: #F6B17A;
 }
 
-form button:hover, form a:hover {
+form input[type="file"]::-webkit-file-upload-button {
+    cursor: pointer;
+    border: 0.1rem rgba(0, 0, 0, 0.575) solid;
+    border-radius: 0.3rem;
+    transition: background-color 0.2s ease-in-out;
+}
+
+form button:hover, form a:hover, form input[type="file"]::-webkit-file-upload-button:hover {
     background-color: blanchedalmond;
     border: 0.1rem rgba(0, 0, 0, 0.575) solid;
     color: #212121;

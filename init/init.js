@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV != 'production') {
+    await import('dotenv/config');
+}
+
 import mongoose from "mongoose";
 
 import { Listing } from '../models/listings.js';
@@ -6,10 +10,11 @@ import { User } from '../models/users.js';
 import { listings } from './listingsData.js';
 
 // Setting up the connection with MongoDB.
-const MONGO_URL = 'mongodb://127.0.0.1:27017/hotelcatalogue';
+const MONGO_URL = process.env.MONGO_URL;
+const ATLASDB_URL = process.env.ATLASDB_URL;
 
 async function main() {
-    await mongoose.connect(MONGO_URL);
+    mongoose.connect(ATLASDB_URL);
 }
 
 main()

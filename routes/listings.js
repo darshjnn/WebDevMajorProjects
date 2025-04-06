@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import multer from 'multer';
 
-import { cloudinary, storage } from '../cloudConfig.js';
+import { storage } from '../cloudinaryConfig.js';
 
 // import { ExpressError } from '../utils/ExpressError.js';
 import { wrapAsync } from '../utils/wrapAsync.js';
