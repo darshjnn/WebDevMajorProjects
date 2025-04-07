@@ -19,6 +19,7 @@ import { User } from './models/users.js';
 import listings from './routes/listings.js';
 import reviews from './routes/reviews.js';
 import users from './routes/users.js';
+
 import { error } from 'console';
 
 const app = express();
@@ -84,7 +85,7 @@ store.on('error', () => {
 
 // Using express-sessions & passing MongoStore object inside express-sessions
 const expressSessions = {
-    store, 
+    store,
     secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,

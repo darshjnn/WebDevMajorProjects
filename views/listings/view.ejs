@@ -57,7 +57,7 @@
     <% if ((currUser) && (currUser._id).equals(listing.owner._id)) { %>
     <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST" class="actionForm">
       <div>
-        <a href="http://localhost:8080/listings/">Go back...</a>
+        <a href="/listings">Go back...</a>
       </div>
 
       <div>
@@ -65,7 +65,7 @@
       </div>
 
       <div>
-        <a href="http://localhost:8080/listings/<%= listing._id %>/edit">Edit Listing...</a>
+        <a href="/listings/<%= listing._id %>/edit">Edit Listing...</a>
       </div>
     </form>
 
@@ -115,7 +115,7 @@
           <textarea name="review[comment]" id="commentInp" placeholder="How was your experience???" required></textarea>
         </div>
         <div>
-          <a href="http://localhost:8080/listings/">Go back...</a>
+          <a href="/listings">Go back...</a>
           <button type="submit">Submit your review...</button>
         </div>
       </form>

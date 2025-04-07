@@ -24,7 +24,7 @@ listings.route('/')
         // Post Route for adding a Listing
         isLoggedIn, upload.single('listing[image]'),
         wrapAsync(listingController.createPost)
-    );
+);
 
 // Create Route
 listings.get('/add', isLoggedIn, listingController.create);

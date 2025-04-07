@@ -13,7 +13,7 @@ export const isLoggedIn = (req, res, next) => {
         return res.redirect('/users/login');
     };
     next();
-};
+}
 
 // Saving Redirect Url for continuing to the same page before logged in
 export const saveRedirectUrl = (req, res, next) => {
@@ -21,7 +21,7 @@ export const saveRedirectUrl = (req, res, next) => {
         res.locals.redirectUrl = req.session.redirectUrl;
     };
     next();
-};
+}
 
 // Implementing Joi for Server-side Review Schema Validation.
 export const validateReview = (req, res, next) => {
@@ -35,7 +35,7 @@ export const validateReview = (req, res, next) => {
     } else {
         next();
     }
-};
+}
 
 // Checking if current user is the owner of the listing
 export const isOwner = async (req, res, next) => {
@@ -47,7 +47,7 @@ export const isOwner = async (req, res, next) => {
         return res.redirect(`/listings/${id}`);
     };
     next();
-};
+}
 
 // Checking if current user is the author of the review
 export const isAuthor = async (req, res, next) => {
@@ -59,4 +59,4 @@ export const isAuthor = async (req, res, next) => {
         return res.redirect(`/listings/${id}`);
     }
     next();
-};
+}
